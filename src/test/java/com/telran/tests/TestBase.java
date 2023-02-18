@@ -9,7 +9,10 @@ import org.testng.ITestResult;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 
+import java.io.IOException;
 import java.lang.reflect.Method;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.time.Duration;
 import java.util.Arrays;
 import java.util.concurrent.TimeUnit;
@@ -24,13 +27,13 @@ public class TestBase {
     public void init() {
         driver = new ChromeDriver();
         driver.manage().window().maximize();
-        driver.get("https://demoqa.com/login");
+        driver.get("https://demoqa.com/");
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
     }
 
 
 
-    @AfterMethod(enabled = true)
+    @AfterMethod(enabled = false)
     public void tearDown() {
         driver.quit();
     }
@@ -42,4 +45,23 @@ public class TestBase {
             throw new RuntimeException(e);
         }
     }
+
+//    Вот пример настройки папки для скачивания файлов по умолчанию /users/user/documents
+
+//    @BeforeMethod
+//    public void init() {
+//        HashMap<String, Object> chromePrefs = new HashMap<String, Object>();
+//        chromePrefs.put("download.default_directory", "/users/user/documents");
+//        ChromeOptions options = new ChromeOptions();
+//        options.setExperimentalOption("prefs", chromePrefs);
+//
+//        driver = new ChromeDriver(options);
+//
+//        driver.manage().window().maximize();
+//        driver.get("https://demoqa.com/");
+//
+//        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+//    }
+
+
 }
